@@ -126,6 +126,7 @@ a {
     color: #c0392b;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .fav-btn.active {
