@@ -10,7 +10,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <footer className="footer">
-        <p>Receitário · FIAP · Dados da DummyJSON</p>
+        <p>Receitário · FIAP · 2026 · Dados da DummyJSON</p>
       </footer>
     </div>
   )
