@@ -9,7 +9,24 @@ export default function Catalogo() {
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('')
-  const [favorites, setFavorites] = useState<number[]>([])
+  const [favorites, setFavorites] = useState<number[]>(() => {
+  try {
+    const saved = localStorage.getItem('receitario-favorites')
+    if (!saved) return []
+
+    const parsed: unknown = JSON.parse(saved)
+
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is number => typeof id === 'number')
+      : []
+  } catch {
+    return []
+  }
+})
+
+useEffect(() => {
+  localStorage.setItem('receitario-favorites', JSON.stringify(favorites))
+}, [favorites])
 
   useEffect(() => {
     getRecipes()
