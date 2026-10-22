@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="status">
       <h1>404</h1>
-      <p>Página não encontrada.</p>
+      <p>Ops! Essa página não existe.</p>
       <Link to="/">← Voltar ao catálogo</Link>
     </div>
   )
