@@ -53,7 +53,7 @@ export default function Catalogo() {
       <div className="filters">
         <input
           type="search"
-          placeholder="Buscar por nome..."
+          placeholder="Buscar receita pelo nome..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
