@@ -68,7 +68,7 @@ export default function Catalogo() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="status">Nenhuma receita encontrada.</p>
+        <p className="status">Nenhuma receita encontrada. Tente outra busca.</p>
       ) : (
         <div className="grid">
           {filtered.map((r) => (
