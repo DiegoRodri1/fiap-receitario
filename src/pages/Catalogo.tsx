@@ -46,7 +46,7 @@ export default function Catalogo() {
   return (
     <section>
       <div className="page-top">
-        <h1>Catálogo de receitas</h1>
+        <h1>Nossas receitas</h1>
         <span className="fav-counter">{favorites.length} favoritas</span>
       </div>
 
