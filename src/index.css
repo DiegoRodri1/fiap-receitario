@@ -1,0 +1,35 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: #faf7f2; color: #2b2b2b; }
+a { color: inherit; }
+
+.layout { min-height: 100vh; display: flex; flex-direction: column; }
+.header { background: #c0392b; color: #fff; padding: 1rem 2rem; }
+.logo { font-size: 1.4rem; font-weight: 700; text-decoration: none; }
+.main { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+.footer { text-align: center; padding: 1rem; background: #eee; font-size: .9rem; }
+
+.page-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.fav-counter { background: #c0392b; color: #fff; padding: .3rem .8rem; border-radius: 999px; font-size: .9rem; }
+
+.filters { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.filters input, .filters select { padding: .6rem .8rem; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; }
+.filters input { flex: 1; min-width: 200px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.25rem; }
+.card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.card-body { padding: .9rem; display: flex; flex-direction: column; gap: .35rem; }
+.card-body h3 { font-size: 1.05rem; }
+.card-body h3 a { text-decoration: none; }
+.fav-btn { margin-top: .4rem; padding: .5rem; border: 1px solid #c0392b; background: #fff; color: #c0392b; border-radius: 8px; cursor: pointer; }
+.fav-btn.active { background: #c0392b; color: #fff; }
+
+.status { text-align: center; padding: 3rem 1rem; }
+.status h1 { margin-bottom: .5rem; }
+.status a { display: inline-block; margin-top: 1rem; }
+.error { color: #c0392b; }
+
+.detail { display: flex; flex-direction: column; gap: 1rem; }
+.detail img { width: 100%; max-width: 500px; border-radius: 12px; }
+.detail ul, .detail ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: .4rem; }
+.times { list-style: none; flex-direction: row !important; gap: 1.5rem !important; padding-left: 0 !important; flex-wrap: wrap; }
