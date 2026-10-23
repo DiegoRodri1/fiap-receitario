@@ -83,6 +83,17 @@ useEffect(() => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <select
+  value={cuisine}
+  onChange={(e) => setCuisine(e.target.value)}
+>
+  <option value="">Todas as culinárias</option>
+  {cuisines.map((c) => (
+    <option key={c} value={c}>
+      {c}
+    </option>
+  ))}
+</select>
+        <select
   value={difficulty}
   onChange={(e) => setDifficulty(e.target.value)}
 >
