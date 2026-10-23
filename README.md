@@ -9,11 +9,11 @@ Yan Almeida - RM568814
 
 ## Deploy
 
-🔗 <!-- link da Vercel -->
+🔗 fiap-receitario.vercel.app
 
 ## Print do catálogo
 
-<!-- adicionar print da tela do catálogo -->
+![Tela do catálogo](docs/catalogo.png)
 
 ## Como rodar
 
