@@ -99,14 +99,18 @@ const sortedRecipes = useMemo(() => {
       <div className="filters">
         <input
           type="search"
+           aria-label="Buscar receita pelo nome"
           placeholder="Buscar receita pelo nome..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select
+       
+<select
+  aria-label="Filtrar por culinária"
   value={cuisine}
   onChange={(e) => setCuisine(e.target.value)}
 >
+
   <option value="">Todas as culinárias</option>
   {cuisines.map((c) => (
     <option key={c} value={c}>
@@ -115,6 +119,7 @@ const sortedRecipes = useMemo(() => {
   ))}
 </select>
         <select
+  aria-label="Filtrar por dificuldade"
   value={difficulty}
   onChange={(e) => setDifficulty(e.target.value)}
 >
@@ -125,6 +130,7 @@ const sortedRecipes = useMemo(() => {
 </select>
 
 <select
+  aria-label="Ordenar receitas"
   value={sortBy}
   onChange={(e) => setSortBy(e.target.value)}
 >
