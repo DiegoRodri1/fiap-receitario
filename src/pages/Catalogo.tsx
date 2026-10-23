@@ -9,6 +9,8 @@ export default function Catalogo() {
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('')
+  const [difficulty, setDifficulty] = useState('')
+  const [sortBy, setSortBy] = useState('default')
   const [favorites, setFavorites] = useState<number[]>(() => {
   try {
     const saved = localStorage.getItem('receitario-favorites')
@@ -42,15 +44,42 @@ useEffect(() => {
   )
 
   // Busca e filtro funcionam juntos
-  const filtered = useMemo(() => {
-    const term = search.trim().toLowerCase()
-    return recipes.filter(
-      (r) =>
-        r.name.toLowerCase().includes(term) &&
-        (cuisine === '' || r.cuisine === cuisine),
-    )
-  }, [recipes, search, cuisine])
+ const filtered = useMemo(() => {
+  const term = search.trim().toLowerCase()
 
+  return recipes.filter((recipe) => {
+    const matchesName = recipe.name.toLowerCase().includes(term)
+
+    const matchesCuisine =
+      cuisine === '' || recipe.cuisine === cuisine
+
+    const matchesDifficulty =
+      difficulty === '' || recipe.difficulty === difficulty
+
+    return matchesName && matchesCuisine && matchesDifficulty
+  })
+}, [recipes, search, cuisine, difficulty])
+
+const sortedRecipes = useMemo(() => {
+  const result = [...filtered]
+
+  if (sortBy === 'name') {
+    return result.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    )
+  }
+
+  if (sortBy === 'time') {
+    return result.sort((a, b) => {
+      const timeA = a.prepTimeMinutes + a.cookTimeMinutes
+      const timeB = b.prepTimeMinutes + b.cookTimeMinutes
+
+      return timeA - timeB
+    })
+  }
+
+  return result
+}, [filtered, sortBy])
   function toggleFavorite(id: number) {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
@@ -70,25 +99,53 @@ useEffect(() => {
       <div className="filters">
         <input
           type="search"
+           aria-label="Buscar receita pelo nome"
           placeholder="Buscar receita pelo nome..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
-          <option value="">Todas as culinárias</option>
-          {cuisines.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
+       
+<select
+  aria-label="Filtrar por culinária"
+  value={cuisine}
+  onChange={(e) => setCuisine(e.target.value)}
+>
+
+  <option value="">Todas as culinárias</option>
+  {cuisines.map((c) => (
+    <option key={c} value={c}>
+      {c}
+    </option>
+  ))}
+</select>
+        <select
+  aria-label="Filtrar por dificuldade"
+  value={difficulty}
+  onChange={(e) => setDifficulty(e.target.value)}
+>
+  <option value="">Todas as dificuldades</option>
+  <option value="Easy">Fácil</option>
+  <option value="Medium">Médio</option>
+  <option value="Hard">Difícil</option>
+</select>
+
+<select
+  aria-label="Ordenar receitas"
+  value={sortBy}
+  onChange={(e) => setSortBy(e.target.value)}
+>
+  <option value="default">Ordem original</option>
+  <option value="name">Nome (A-Z)</option>
+  <option value="time">Menor tempo de preparo</option>
+</select>
+
       </div>
 
       {filtered.length === 0 ? (
         <p className="status">Nenhuma receita encontrada. Tente outra busca.</p>
       ) : (
         <div className="grid">
-          {filtered.map((r) => (
+          {sortedRecipes.map((r) => (
             <RecipeCard
               key={r.id}
               recipe={r}
