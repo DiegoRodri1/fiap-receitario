@@ -10,6 +10,7 @@ export default function Catalogo() {
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('')
   const [difficulty, setDifficulty] = useState('')
+  const [sortBy, setSortBy] = useState('default')
   const [favorites, setFavorites] = useState<number[]>(() => {
   try {
     const saved = localStorage.getItem('receitario-favorites')
@@ -59,6 +60,26 @@ useEffect(() => {
   })
 }, [recipes, search, cuisine, difficulty])
 
+const sortedRecipes = useMemo(() => {
+  const result = [...filtered]
+
+  if (sortBy === 'name') {
+    return result.sort((a, b) =>
+      a.name.localeCompare(b.name)
+    )
+  }
+
+  if (sortBy === 'time') {
+    return result.sort((a, b) => {
+      const timeA = a.prepTimeMinutes + a.cookTimeMinutes
+      const timeB = b.prepTimeMinutes + b.cookTimeMinutes
+
+      return timeA - timeB
+    })
+  }
+
+  return result
+}, [filtered, sortBy])
   function toggleFavorite(id: number) {
     setFavorites((prev) =>
       prev.includes(id) ? prev.filter((f) => f !== id) : [...prev, id],
@@ -102,13 +123,23 @@ useEffect(() => {
   <option value="Medium">Médio</option>
   <option value="Hard">Difícil</option>
 </select>
+
+<select
+  value={sortBy}
+  onChange={(e) => setSortBy(e.target.value)}
+>
+  <option value="default">Ordem original</option>
+  <option value="name">Nome (A-Z)</option>
+  <option value="time">Menor tempo de preparo</option>
+</select>
+
       </div>
 
       {filtered.length === 0 ? (
         <p className="status">Nenhuma receita encontrada. Tente outra busca.</p>
       ) : (
         <div className="grid">
-          {filtered.map((r) => (
+          {sortedRecipes.map((r) => (
             <RecipeCard
               key={r.id}
               recipe={r}
