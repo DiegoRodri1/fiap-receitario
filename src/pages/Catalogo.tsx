@@ -9,6 +9,7 @@ export default function Catalogo() {
   const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [cuisine, setCuisine] = useState('')
+  const [difficulty, setDifficulty] = useState('')
   const [favorites, setFavorites] = useState<number[]>(() => {
   try {
     const saved = localStorage.getItem('receitario-favorites')
@@ -42,14 +43,21 @@ useEffect(() => {
   )
 
   // Busca e filtro funcionam juntos
-  const filtered = useMemo(() => {
-    const term = search.trim().toLowerCase()
-    return recipes.filter(
-      (r) =>
-        r.name.toLowerCase().includes(term) &&
-        (cuisine === '' || r.cuisine === cuisine),
-    )
-  }, [recipes, search, cuisine])
+ const filtered = useMemo(() => {
+  const term = search.trim().toLowerCase()
+
+  return recipes.filter((recipe) => {
+    const matchesName = recipe.name.toLowerCase().includes(term)
+
+    const matchesCuisine =
+      cuisine === '' || recipe.cuisine === cuisine
+
+    const matchesDifficulty =
+      difficulty === '' || recipe.difficulty === difficulty
+
+    return matchesName && matchesCuisine && matchesDifficulty
+  })
+}, [recipes, search, cuisine, difficulty])
 
   function toggleFavorite(id: number) {
     setFavorites((prev) =>
@@ -74,14 +82,15 @@ useEffect(() => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
-          <option value="">Todas as culinárias</option>
-          {cuisines.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
+        <select
+  value={difficulty}
+  onChange={(e) => setDifficulty(e.target.value)}
+>
+  <option value="">Todas as dificuldades</option>
+  <option value="Easy">Fácil</option>
+  <option value="Medium">Médio</option>
+  <option value="Hard">Difícil</option>
+</select>
       </div>
 
       {filtered.length === 0 ? (
