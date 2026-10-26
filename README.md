@@ -1,4 +1,16 @@
 
+# Receitário
+
+O Receitário é uma aplicação web desenvolvida para organizar e consultar receitas culinárias por meio de um catálogo.
+
+## Tecnologias utilizadas
+
+- **React:** construção da interface da aplicação.
+- **TypeScript:** tipagem e organização do código.
+- **Vite:** ferramenta de desenvolvimento e geração da versão de produção.
+- **React Router DOM:** gerenciamento da navegação entre páginas.
+- **HTML e CSS:** estrutura e estilização das páginas.
+
 ## Integrantes
 
 | Nome | RM |
